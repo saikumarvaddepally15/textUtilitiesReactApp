@@ -5,25 +5,40 @@ export default function Form(props) {
     const handleUpClick=()=>{
         let newText=text.toUpperCase();
         setText(newText);
+        props.setAlert("Converted to Upper Case","success");
     }
 
     const handleLowerClick=()=>{
         let newText=text.toLowerCase();
         setText(newText);
+        props.setAlert("Converted to Lower Case","success");
     }
     const handleClearClick=()=>{
         let newText="";
         setText(newText);
+        props.setAlert("clearled the text","success");
     }
     const handleCapitalisedClick=()=>{
         let newText=text.charAt(0).toUpperCase()+text.slice(1);
         setText(newText);
+        props.setAlert("Capitalised the text","success");
     }
     const handleOnChange =(event)=>{
         setText(event.target.value);
     }
-  
+    const wordsCount =(sampelText)=>{
+        var words=sampelText.match(/\S+/g);
+        return {
+            charcterNoSpaces: sampelText.replace(/s\s+/g,'').length,
+            characters: sampelText.length,
+            wrds:words?words.length:0,
+
+        };
+
+
+    }
   return (
+   
     <>
 <div className="mb-3">
     <h2 style={{color:props.mode==='dark'?'white':'black'}}>{props.heading}</h2>
@@ -36,7 +51,7 @@ export default function Form(props) {
 <button className="btn btn-primary" onClick={handleCapitalisedClick}>Capitalise Text</button>
 <div className="container my-3">
     <h2 style={{color:props.mode==='dark'?'white':'black'}}>Your text summary</h2>
-<p style={{color:props.mode==='dark'?'white':'black'}}>Words:{text.split(" ").length} letters:{text.length}</p>
+<p style={{color:props.mode==='dark'?'white':'black'}}>Words:{wordsCount(text).wrds} letters:{wordsCount(text).charcterNoSpaces}</p>
 </div>
 <div>
     <h3 style={{color:props.mode==='dark'?'white':'black'}}>preview</h3>
